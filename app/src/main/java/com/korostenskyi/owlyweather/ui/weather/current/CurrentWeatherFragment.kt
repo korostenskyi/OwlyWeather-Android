@@ -7,10 +7,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.korostenskyi.owlyweather.R
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class CurrentWeatherFragment : Fragment(), CurrentWeatherContract.View {
+class CurrentWeatherFragment : Fragment() {
 
-    override var presenter: CurrentWeatherContract.Presenter = CurrentWeatherPresenter(this)
+    private val viewModel: CurrentWeatherViewModel by viewModel()
 
     private lateinit var rootView: View
 
@@ -21,12 +22,10 @@ class CurrentWeatherFragment : Fragment(), CurrentWeatherContract.View {
 
         rootView = inflater.inflate(R.layout.fragment_current_weather, container, false)
 
-        presenter.start()
-
         return rootView
     }
 
-    override fun showToastMessage(message: String) {
+    fun showToastMessage(message: String) {
         Toast.makeText(rootView.context, message, Toast.LENGTH_SHORT).show()
     }
 }
