@@ -1,4 +1,4 @@
-package com.korostenskyi.owlyweather.data.network.entity
+package com.korostenskyi.owlyweather.data.network.entity.SunriseSunset
 
 data class Results(
     val sunrise: String,
