@@ -3,7 +3,7 @@ package com.korostenskyi.owlyweather.di
 import com.korostenskyi.owlyweather.data.network.OpenWeatherDataSourceImpl
 import com.korostenskyi.owlyweather.data.network.api.OpenWeatherApiService
 import com.korostenskyi.owlyweather.data.repository.RepositoryImpl
-import com.korostenskyi.owlyweather.ui.weather.current.CurrentWeatherViewModelFactory
+import com.korostenskyi.owlyweather.ui.MainViewModelFactory
 import org.kodein.di.Kodein
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
@@ -21,6 +21,6 @@ val appModule = Kodein.Module("app") {
     // OpenWeatherRepositoryImpl
     bind() from singleton { RepositoryImpl(instance()) }
 
-    // CurrentWeatherViewModelFactory
-    bind() from provider { CurrentWeatherViewModelFactory(instance()) }
+    // MainViewModelFactory
+    bind() from provider { MainViewModelFactory(instance()) }
 }

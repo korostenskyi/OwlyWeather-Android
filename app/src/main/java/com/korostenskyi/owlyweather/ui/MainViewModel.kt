@@ -1,4 +1,4 @@
-package com.korostenskyi.owlyweather.ui.weather.current
+package com.korostenskyi.owlyweather.ui
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,7 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class CurrentWeatherViewModel(private val repository: Repository): ViewModel() {
+class MainViewModel(private val repository: Repository): ViewModel() {
 
     var currentWeather = MutableLiveData<CurrentWeather>()
 
