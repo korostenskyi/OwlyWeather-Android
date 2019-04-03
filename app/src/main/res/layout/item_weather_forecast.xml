@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="75dp"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:text="16:00"
+        android:id="@+id/tv_item_time"
+        android:textAlignment="center"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent" />
+
+    <RelativeLayout
+        android:layout_height="50dp"
+        android:layout_width="match_parent">
+
+        <TextView
+            android:text="8"
+            android:textSize="@dimen/text_24"
+            android:id="@+id/tv_item_temperature"
+            android:textAlignment="center"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_item_weather_icon"
+            android:src="@drawable/ic_launcher_background"
+            android:layout_weight="1"
+            android:layout_height="24dp"
+            android:layout_width="0dp" />
+
+        <TextView
+            android:text="Snowfall"
+            android:id="@+id/tv_item_weather_name"
+            android:textAlignment="center"
+            android:layout_weight="4"
+            android:layout_height="match_parent"
+            android:layout_width="0dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- General -->
+    <dimen name="margin_xsmall">4dp</dimen>
+    <dimen name="margin_small">8dp</dimen>
+    <dimen name="margin_10">10dp</dimen>
+    <dimen name="margin_12">12dp</dimen>
+    <dimen name="margin_medium">16dp</dimen>
+    <dimen name="margin_20">20dp</dimen>
+    <dimen name="margin_large">24dp</dimen>
+    <dimen name="margin_xlarge">32dp</dimen>
+    <dimen name="margin_56">56dp</dimen>
+
+    <dimen name="padding_xsmall">4dp</dimen>
+    <dimen name="padding_small">8dp</dimen>
+    <dimen name="padding_10">10dp</dimen>
+    <dimen name="padding_12">12dp</dimen>
+    <dimen name="padding_medium">16dp</dimen>
+    <dimen name="padding_20">20dp</dimen>
+    <dimen name="padding_large">24dp</dimen>
+    <dimen name="padding_xlarge">32dp</dimen>
+
+    <dimen name="text_11">11sp</dimen>
+    <dimen name="text_12">12sp</dimen>
+    <dimen name="text_13">13sp</dimen>
+    <dimen name="text_14">14sp</dimen>
+    <dimen name="text_15">15sp</dimen>
+    <dimen name="text_16">16sp</dimen>
+    <dimen name="text_17">17sp</dimen>
+    <dimen name="text_18">18sp</dimen>
+    <dimen name="text_20">20sp</dimen>
+    <dimen name="text_22">22sp</dimen>
+    <dimen name="text_24">24sp</dimen>
+    <dimen name="text_72">72sp</dimen>
+    <dimen name="text_96">96sp</dimen>
+
+    <dimen name="app_bar_size">180dp</dimen>
+    <dimen name="sunset_card_margin_top">80dp</dimen>
+    <dimen name="sunset_card_padding">32dp</dimen>
+    <dimen name="card_elevation">8dp</dimen>
+    <dimen name="card_radius">2dp</dimen>
+    <dimen name="stub_elevation">2dp</dimen>
+
+    <dimen name="button_margin_top">700dp</dimen>
+    <dimen name="button_padding">32dp</dimen>
+</resources>
