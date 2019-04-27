@@ -1,11 +1,11 @@
 package com.korostenskyi.owlyweather.data.entity.OpenWeather
 
+import com.google.gson.annotations.SerializedName
+
 data class Main(
-    val temp: Double,
-    val pressure: Double,
-    val humidity: Double,
-    val temp_min: Double,
-    val temp_max: Double,
-    val sea_level: Double,
-    val grnd_level: Double
+    @SerializedName("temp") val temp: Double,
+    @SerializedName("pressure") val pressure: Double,
+    @SerializedName("humidity") val humidity: Int,
+    @SerializedName("temp_min") val temp_min: Double,
+    @SerializedName("temp_max") val temp_max: Double
 )
