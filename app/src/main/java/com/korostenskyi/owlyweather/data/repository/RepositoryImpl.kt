@@ -2,7 +2,7 @@ package com.korostenskyi.owlyweather.data.repository
 
 import androidx.lifecycle.MutableLiveData
 import com.korostenskyi.owlyweather.data.network.OpenWeatherDataSource
-import com.korostenskyi.owlyweather.data.network.entity.OpenWeather.CurrentWeather
+import com.korostenskyi.owlyweather.data.entity.OpenWeather.CurrentWeather
 
 class RepositoryImpl(private val openWeatherDataSource: OpenWeatherDataSource): Repository {
 

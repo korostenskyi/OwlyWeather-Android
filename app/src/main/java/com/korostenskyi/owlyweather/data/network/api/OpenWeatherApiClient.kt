@@ -1,6 +1,6 @@
 package com.korostenskyi.owlyweather.data.network.api
 
-import com.korostenskyi.owlyweather.data.network.entity.OpenWeather.CurrentWeather
+import com.korostenskyi.owlyweather.data.entity.OpenWeather.CurrentWeather
 import kotlinx.coroutines.Deferred
 import retrofit2.http.GET
 import retrofit2.http.Query

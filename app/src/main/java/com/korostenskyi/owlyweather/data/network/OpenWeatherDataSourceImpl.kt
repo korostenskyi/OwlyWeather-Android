@@ -3,7 +3,7 @@ package com.korostenskyi.owlyweather.data.network
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.korostenskyi.owlyweather.data.network.api.OpenWeatherApiService
-import com.korostenskyi.owlyweather.data.network.entity.OpenWeather.CurrentWeather
+import com.korostenskyi.owlyweather.data.entity.OpenWeather.CurrentWeather
 
 class OpenWeatherDataSourceImpl(private val apiService: OpenWeatherApiService): OpenWeatherDataSource {
 

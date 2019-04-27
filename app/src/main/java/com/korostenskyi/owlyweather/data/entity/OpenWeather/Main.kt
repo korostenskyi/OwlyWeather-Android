@@ -1,4 +1,4 @@
-package com.korostenskyi.owlyweather.data.network.entity.OpenWeather
+package com.korostenskyi.owlyweather.data.entity.OpenWeather
 
 data class Main(
     val temp: Double,

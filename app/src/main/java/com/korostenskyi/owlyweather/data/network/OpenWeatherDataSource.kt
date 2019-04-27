@@ -1,7 +1,7 @@
 package com.korostenskyi.owlyweather.data.network
 
 import androidx.lifecycle.LiveData
-import com.korostenskyi.owlyweather.data.network.entity.OpenWeather.CurrentWeather
+import com.korostenskyi.owlyweather.data.entity.OpenWeather.CurrentWeather
 
 interface OpenWeatherDataSource {
 

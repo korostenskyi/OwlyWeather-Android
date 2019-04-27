@@ -1,7 +1,7 @@
 package com.korostenskyi.owlyweather.data.network.api
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import com.korostenskyi.owlyweather.data.network.entity.OpenWeather.CurrentWeather
+import com.korostenskyi.owlyweather.data.entity.OpenWeather.CurrentWeather
 import kotlinx.coroutines.Deferred
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
