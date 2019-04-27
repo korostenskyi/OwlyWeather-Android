@@ -32,7 +32,10 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
 
     //Lifecycle
-    implementation "android.arch.lifecycle:extensions:1.1.1"
+    implementation 'android.arch.lifecycle:extensions:1.1.1'
+
+    // Design
+    implementation 'com.google.android.material:material:1.1.0-alpha05'
 
     // Kodein
     // Warning: Not to update to 6.x.x version
