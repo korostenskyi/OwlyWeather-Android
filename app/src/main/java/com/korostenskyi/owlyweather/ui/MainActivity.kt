@@ -100,15 +100,15 @@ class MainActivity : AppCompatActivity(), CoroutineScope, KodeinAware {
 
     private fun updateUI() {
 
-        val temperature = weatherLiveData.value?.numericalData?.temperature!! - 273.15
+        val temperature = (weatherLiveData.value?.numericalData?.temperature!! - 273.15).toInt()
 
-        tv_temperatureBig.text = "${String.format("%.0f", temperature)}°"
+        tv_temperatureBig.text = "$temperature°"
         tv_cityName.text = weatherLiveData.value?.cityName
         tv_windSpeed.text = weatherLiveData.value?.wind?.speed.toString()
         tv_humidityPercent.text = weatherLiveData.value?.numericalData!!.humidity.toString()
         tv_condition.text = weatherLiveData.value?.weather?.get(0)?.title
 
-        val sdf = SimpleDateFormat("dd/MM hh:mm:ss")
+        val sdf = SimpleDateFormat("dd.MM hh:mm:ss")
         val currentDate = sdf.format(Date())
         tv_date.text = currentDate
     }
