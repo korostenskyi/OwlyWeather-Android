@@ -15,6 +15,7 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.korostenskyi.owlyweather.R
 import com.korostenskyi.owlyweather.data.entity.OpenWeather.WeatherCurrentResponse
+import com.korostenskyi.owlyweather.data.entity.OpenWeather.WeatherForecastResponse
 import com.korostenskyi.owlyweather.utils.NetworkUtils
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.CoroutineScope
@@ -41,6 +42,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope, KodeinAware {
     private val mainViewModelFactory: MainViewModelFactory by instance()
 
     private var weatherLiveData = MutableLiveData<WeatherCurrentResponse>()
+    private var forecastLiveData = MutableLiveData<WeatherForecastResponse>()
 
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
@@ -81,20 +83,40 @@ class MainActivity : AppCompatActivity(), CoroutineScope, KodeinAware {
         ActivityCompat.requestPermissions(this@MainActivity, arrayOf(ACCESS_FINE_LOCATION), PLACE_REQUEST)
     }
 
+    private suspend fun sendCurrentWeatherRequest(lat: Double, lon: Double) {
+        weatherLiveData = viewModel.currentWeather
+
+        weatherLiveData.observe(this@MainActivity, Observer { currentWeather ->
+            if (currentWeather == null) {
+                showToast("Something went wrong...")
+                return@Observer
+            }
+
+            updateUI()
+        })
+
+        viewModel.fetchCurrentWeather(lat, lon)
+    }
+
+    private suspend fun sentForecastWeatherRequest(lat: Double, lon: Double) {
+        forecastLiveData = viewModel.forecastWeather
+
+        forecastLiveData.observe(this@MainActivity, Observer { forecastWeather ->
+            if (forecastWeather == null) {
+                showToast("Something went wrong...")
+                return@Observer
+            }
+
+            // TODO: Load this data to the RecyclerView below
+        })
+
+        viewModel.fetchForecastWeather(lat, lon)
+    }
+
     private fun loadData(lat: Double, lon: Double) {
         launch {
-            weatherLiveData = viewModel.currentWeather
-
-            weatherLiveData.observe(this@MainActivity, Observer { currentWeather ->
-                if (currentWeather == null) {
-                    showToast("Something went wrong...")
-                    return@Observer
-                }
-
-                updateUI()
-            })
-
-            viewModel.fetchCurrentWeather(lat, lon)
+            sendCurrentWeatherRequest(lat, lon)
+            sentForecastWeatherRequest(lat, lon)
         }
     }
 

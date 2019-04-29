@@ -2,6 +2,7 @@ package com.korostenskyi.owlyweather.data.network.api
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.korostenskyi.owlyweather.data.entity.OpenWeather.WeatherCurrentResponse
+import com.korostenskyi.owlyweather.data.entity.OpenWeather.WeatherForecastResponse
 import kotlinx.coroutines.Deferred
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -34,5 +35,9 @@ class OpenWeatherApiService {
 
     fun fetchCurrentWeatherAsync(lat: Double, lon: Double): Deferred<WeatherCurrentResponse> {
         return client.fetchCurrentWeatherAsync(lat, lon, apiKey)
+    }
+
+    fun fetchForecastWeatherAsync(lat: Double, lon: Double): Deferred<WeatherForecastResponse> {
+        return client.fetchForecastWeatherAsync(lat, lon, apiKey)
     }
 }
