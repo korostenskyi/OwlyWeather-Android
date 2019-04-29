@@ -13,9 +13,8 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import com.google.android.material.snackbar.Snackbar
 import com.korostenskyi.owlyweather.R
-import com.korostenskyi.owlyweather.data.entity.OpenWeather.CurrentWeather
+import com.korostenskyi.owlyweather.data.entity.OpenWeather.WeatherCurrentResponse
 import com.korostenskyi.owlyweather.utils.NetworkUtils
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.CoroutineScope
@@ -41,7 +40,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope, KodeinAware {
     private lateinit var viewModel: MainViewModel
     private val mainViewModelFactory: MainViewModelFactory by instance()
 
-    private var weatherLiveData = MutableLiveData<CurrentWeather>()
+    private var weatherLiveData = MutableLiveData<WeatherCurrentResponse>()
 
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
@@ -95,20 +94,19 @@ class MainActivity : AppCompatActivity(), CoroutineScope, KodeinAware {
                 updateUI()
             })
 
-            // viewModel.fetchCurrentWeather(49.8397, 24.0297)
             viewModel.fetchCurrentWeather(lat, lon)
         }
     }
 
     private fun updateUI() {
 
-        val temperature = weatherLiveData.value?.main?.temp!! - 273.15
+        val temperature = weatherLiveData.value?.numericalData?.temperature!! - 273.15
 
         tv_temperatureBig.text = "${String.format("%.0f", temperature)}°"
-        tv_cityName.text = weatherLiveData.value?.name
+        tv_cityName.text = weatherLiveData.value?.cityName
         tv_windSpeed.text = weatherLiveData.value?.wind?.speed.toString()
-        tv_humidityPercent.text = weatherLiveData.value?.main?.humidity.toString()
-        tv_condition.text = weatherLiveData.value?.weatherArray!![0].main
+        tv_humidityPercent.text = weatherLiveData.value?.numericalData!!.humidity.toString()
+        tv_condition.text = weatherLiveData.value?.weather?.get(0)?.title
 
         val sdf = SimpleDateFormat("dd/MM hh:mm:ss")
         val currentDate = sdf.format(Date())
@@ -124,10 +122,5 @@ class MainActivity : AppCompatActivity(), CoroutineScope, KodeinAware {
 
     private fun showToast(message: String) {
         Toast.makeText(this@MainActivity, message, Toast.LENGTH_SHORT).show()
-    }
-
-    private fun showSnackbar(message: String) {
-        val snackbar = Snackbar.make(findViewById(R.id.cl_main_layout), message, Snackbar.LENGTH_SHORT)
-        snackbar.show()
     }
 }

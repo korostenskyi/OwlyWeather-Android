@@ -1,8 +1,9 @@
 package com.korostenskyi.owlyweather.data.entity.OpenWeather
 
+import com.google.gson.annotations.SerializedName
+
 data class Weather(
-    val id: Int,
-    val main: String,
-    val description: String,
-    val icon: String
+    @SerializedName("main") val title: String,
+    @SerializedName("description") val description: String,
+    @SerializedName("icon") val icon: String
 )

@@ -1,12 +1,12 @@
 package com.korostenskyi.owlyweather.data.repository
 
 import androidx.lifecycle.MutableLiveData
+import com.korostenskyi.owlyweather.data.entity.OpenWeather.WeatherCurrentResponse
 import com.korostenskyi.owlyweather.data.network.OpenWeatherDataSource
-import com.korostenskyi.owlyweather.data.entity.OpenWeather.CurrentWeather
 
 class RepositoryImpl(private val openWeatherDataSource: OpenWeatherDataSource): Repository {
 
-    override val currentWeather = MutableLiveData<CurrentWeather>()
+    override val currentWeather = MutableLiveData<WeatherCurrentResponse>()
 
     init {
         openWeatherDataSource.fetchedCurrentWeather.observeForever { serverResponse ->
