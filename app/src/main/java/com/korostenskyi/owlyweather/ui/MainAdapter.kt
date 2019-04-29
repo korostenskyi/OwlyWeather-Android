@@ -4,10 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.korostenskyi.owlyweather.R
+import com.korostenskyi.owlyweather.data.entity.OpenWeather.ForecastBody
+import kotlinx.android.synthetic.main.item_weather_forecast.view.*
 
-class MainAdapter : RecyclerView.Adapter<MainViewHolder>() {
+class MainAdapter(private val forecastList: List<ForecastBody>) : RecyclerView.Adapter<MainViewHolder>() {
 
-    private val itemCount = 4
+    private val itemCount = forecastList.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
 
@@ -19,5 +21,14 @@ class MainAdapter : RecyclerView.Adapter<MainViewHolder>() {
 
     override fun getItemCount(): Int = itemCount
 
-    override fun onBindViewHolder(holder: MainViewHolder, position: Int) { }
+    override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
+
+        val time = forecastList[position].dateString.substring(10, 16)
+        val temperature = (forecastList[position].numericalData.temperature - 273.15).toInt().toString()
+        val weatherCondition = forecastList[position].weather[0].title
+
+        holder.itemView.tv_item_time.text = time
+        holder.itemView.tv_item_temperature.text = temperature
+        holder.itemView.tv_item_weather_name.text = weatherCondition
+    }
 }

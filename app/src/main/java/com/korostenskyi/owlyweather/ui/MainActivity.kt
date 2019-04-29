@@ -107,7 +107,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope, KodeinAware {
                 return@Observer
             }
 
-            // TODO: Load this data to the RecyclerView below
+            rv_weather_forecast.adapter = MainAdapter(forecastWeather.forecastList)
         })
 
         viewModel.fetchForecastWeather(lat, lon)
@@ -139,7 +139,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope, KodeinAware {
         val linearLayoutManager = LinearLayoutManager(this@MainActivity, LinearLayout.HORIZONTAL, false)
 
         rv_weather_forecast.layoutManager = linearLayoutManager
-        rv_weather_forecast.adapter = MainAdapter()
+        rv_weather_forecast.adapter = MainAdapter(listOf())
     }
 
     private fun showToast(message: String) {
