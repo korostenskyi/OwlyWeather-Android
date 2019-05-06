@@ -1,8 +1,8 @@
 package com.korostenskyi.owlyweather.data.repository
 
 import androidx.lifecycle.MutableLiveData
-import com.korostenskyi.owlyweather.data.entity.OpenWeather.WeatherCurrentResponse
-import com.korostenskyi.owlyweather.data.entity.OpenWeather.WeatherForecastResponse
+import com.korostenskyi.owlyweather.data.entity.WeatherCurrentResponse
+import com.korostenskyi.owlyweather.data.entity.WeatherForecastResponse
 
 interface Repository {
 

@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.korostenskyi.owlyweather.R
-import com.korostenskyi.owlyweather.data.entity.OpenWeather.WeatherCurrentResponse
-import com.korostenskyi.owlyweather.data.entity.OpenWeather.WeatherForecastResponse
+import com.korostenskyi.owlyweather.data.entity.WeatherCurrentResponse
+import com.korostenskyi.owlyweather.data.entity.WeatherForecastResponse
 import com.korostenskyi.owlyweather.utils.NetworkUtils
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.CoroutineScope

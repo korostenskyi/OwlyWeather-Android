@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.korostenskyi.owlyweather.R
-import com.korostenskyi.owlyweather.data.entity.OpenWeather.ForecastBody
+import com.korostenskyi.owlyweather.data.entity.ForecastBody
 import kotlinx.android.synthetic.main.item_weather_forecast.view.*
 
 class MainAdapter(private val forecastList: List<ForecastBody>) : RecyclerView.Adapter<MainViewHolder>() {

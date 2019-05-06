@@ -2,8 +2,8 @@ package com.korostenskyi.owlyweather.data.network
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.korostenskyi.owlyweather.data.entity.OpenWeather.WeatherCurrentResponse
-import com.korostenskyi.owlyweather.data.entity.OpenWeather.WeatherForecastResponse
+import com.korostenskyi.owlyweather.data.entity.WeatherCurrentResponse
+import com.korostenskyi.owlyweather.data.entity.WeatherForecastResponse
 import com.korostenskyi.owlyweather.data.network.api.OpenWeatherApiService
 
 class OpenWeatherDataSourceImpl(private val apiService: OpenWeatherApiService): OpenWeatherDataSource {

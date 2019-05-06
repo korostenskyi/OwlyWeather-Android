@@ -2,8 +2,8 @@ package com.korostenskyi.owlyweather.ui
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.korostenskyi.owlyweather.data.entity.OpenWeather.WeatherCurrentResponse
-import com.korostenskyi.owlyweather.data.entity.OpenWeather.WeatherForecastResponse
+import com.korostenskyi.owlyweather.data.entity.WeatherCurrentResponse
+import com.korostenskyi.owlyweather.data.entity.WeatherForecastResponse
 import com.korostenskyi.owlyweather.data.repository.Repository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
