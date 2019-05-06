@@ -8,4 +8,21 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="BaseTextTheme" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textSize">@dimen/text_20</item>
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+
+    <style name="AdditionInfoTheme" parent="BaseTextTheme">
+        <item name="android:textSize">@dimen/text_24</item>
+    </style>
+
+    <style name="MainTemperatureText" parent="BaseTextTheme">
+        <item name="android:textSize">@dimen/text_72</item>
+    </style>
+
+    <style name="TimeTextTheme" parent="BaseTextTheme">
+        <item name="android:textSize">@dimen/text_14</item>
+    </style>
+
 </resources>

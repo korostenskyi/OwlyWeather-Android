@@ -6,6 +6,9 @@
         android:id="@+id/cl_main_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+
+        android:background="@android:color/black"
+
         tools:context=".ui.MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,7 +17,7 @@
         android:layout_width="match_parent">
 
         <TextView
-
+            style="@style/BaseTextTheme"
             android:id="@+id/tv_cityName"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
@@ -49,15 +52,16 @@
 
                 <TextView
                     android:text="@string/wind"
-                    android:textSize="@dimen/text_20"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
+                    style="@style/BaseTextTheme"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     android:id="@+id/textView2"/>
 
                 <TextView
                     android:id="@+id/tv_windSpeed"
+                    style="@style/AdditionInfoTheme"
                     android:textSize="@dimen/text_24"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
@@ -67,6 +71,7 @@
 
                 <TextView
                     android:text="@string/km_h"
+                    style="@style/BaseTextTheme"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     app:layout_constraintTop_toBottomOf="@+id/tv_windSpeed"
@@ -83,8 +88,8 @@
 
                 <TextView
                     android:text="@string/humidity"
+                    style="@style/BaseTextTheme"
                     android:id="@+id/textView3"
-                    android:textSize="@dimen/text_20"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="parent"
@@ -93,7 +98,7 @@
 
                 <TextView
                     android:id="@+id/tv_humidityPercent"
-                    android:textSize="@dimen/text_24"
+                    style="@style/AdditionInfoTheme"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     app:layout_constraintStart_toStartOf="parent"
@@ -102,6 +107,7 @@
 
                 <TextView
                     android:text="@string/percentage"
+                    style="@style/BaseTextTheme"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     app:layout_constraintTop_toBottomOf="@+id/tv_humidityPercent"
@@ -129,7 +135,7 @@
 
                     <TextView
                         android:id="@+id/tv_temperatureBig"
-                        android:textSize="@dimen/text_72"
+                        style="@style/MainTemperatureText"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
                         app:layout_constraintStart_toStartOf="parent"
@@ -161,13 +167,15 @@
 
                     <TextView
                         android:layout_weight="1"
+                        style="@style/BaseTextTheme"
                         android:layout_gravity="center_vertical"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
                         app:layout_constraintTop_toTopOf="@+id/iv_weatherIcon"
                         app:layout_constraintBottom_toBottomOf="@+id/iv_weatherIcon"
                         android:id="@+id/tv_condition"
-                        app:layout_constraintStart_toEndOf="@+id/iv_weatherIcon" android:layout_marginStart="8dp"/>
+                        app:layout_constraintStart_toEndOf="@+id/iv_weatherIcon"
+                        android:layout_marginStart="8dp"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -185,7 +193,6 @@
             app:layout_constraintEnd_toEndOf="parent"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:background="@color/colorDivider"
             android:id="@+id/rv_weather_forecast"
             android:layout_height="100dp"
             android:layout_width="300dp"
