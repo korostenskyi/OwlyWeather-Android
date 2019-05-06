@@ -1,4 +1,4 @@
-package com.korostenskyi.owlyweather.data.entity.OpenWeather
+package com.korostenskyi.owlyweather.data.entity
 
 import com.google.gson.annotations.SerializedName
 
