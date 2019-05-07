@@ -7,6 +7,7 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -16,6 +17,7 @@ import com.google.android.gms.location.LocationServices
 import com.korostenskyi.owlyweather.R
 import com.korostenskyi.owlyweather.data.entity.WeatherCurrentResponse
 import com.korostenskyi.owlyweather.data.entity.WeatherForecastResponse
+import com.korostenskyi.owlyweather.utils.IconUtils
 import com.korostenskyi.owlyweather.utils.NetworkUtils
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.CoroutineScope
@@ -129,6 +131,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope, KodeinAware {
         tv_windSpeed.text = weatherLiveData.value?.wind?.speed.toString()
         tv_humidityPercent.text = weatherLiveData.value?.numericalData!!.humidity.toString()
         tv_condition.text = weatherLiveData.value?.weather?.get(0)?.title
+        iv_weatherIcon.setImageDrawable(ResourcesCompat.getDrawable(resources, IconUtils.getIconDrawable(weatherLiveData.value?.weather?.get(0)?.icon!!), null))
 
         val sdf = SimpleDateFormat("dd.MM hh:mm:ss")
         val currentDate = sdf.format(Date())
