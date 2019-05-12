@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope, KodeinAware {
 
     override val kodein by closestKodein()
 
-    override val coroutineContext: CoroutineContext = Dispatchers.Main
+    override val coroutineContext: CoroutineContext = Dispatchers.IO
 
     private lateinit var viewModel: MainViewModel
     private val mainViewModelFactory: MainViewModelFactory by instance()
@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope, KodeinAware {
 
     private fun updateCurrentLocation() {
 
-        if (ActivityCompat.checkSelfPermission(this@MainActivity, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this@MainActivity, ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             fusedLocationProviderClient.lastLocation.addOnSuccessListener {
                 loadData(it.latitude, it.longitude)
             }
@@ -116,7 +116,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope, KodeinAware {
     }
 
     private fun loadData(lat: Double, lon: Double) {
-        launch {
+        launch(Dispatchers.IO) {
             sendCurrentWeatherRequest(lat, lon)
             sentForecastWeatherRequest(lat, lon)
         }
