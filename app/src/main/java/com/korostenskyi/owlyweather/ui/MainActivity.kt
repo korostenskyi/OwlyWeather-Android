@@ -128,7 +128,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope, KodeinAware {
 
         tv_temperatureBig.text = "$temperature°"
         tv_cityName.text = weatherLiveData.value?.cityName
-        tv_windSpeed.text = weatherLiveData.value?.wind?.speed.toString()
+        tv_windSpeed.text = weatherLiveData.value?.wind?.speed?.toInt().toString()
         tv_humidityPercent.text = weatherLiveData.value?.numericalData!!.humidity.toString()
         tv_condition.text = weatherLiveData.value?.weather?.get(0)?.title
         iv_weatherIcon.setImageDrawable(ResourcesCompat.getDrawable(resources, IconUtils.getIconDrawable(weatherLiveData.value?.weather?.get(0)?.icon!!), null))
