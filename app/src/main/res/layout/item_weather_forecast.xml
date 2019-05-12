@@ -6,8 +6,8 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:text="16:00"
         android:id="@+id/tv_item_time"
+        style="@style/TimeTextTheme"
         android:textAlignment="center"
         android:layout_height="wrap_content"
         android:layout_width="match_parent" />
@@ -17,8 +17,7 @@
         android:layout_width="match_parent">
 
         <TextView
-            android:text="8"
-            android:textSize="@dimen/text_24"
+            style="@style/AdditionInfoTheme"
             android:id="@+id/tv_item_temperature"
             android:textAlignment="center"
             android:layout_centerHorizontal="true"
@@ -37,11 +36,11 @@
             android:src="@drawable/ic_launcher_background"
             android:layout_weight="1"
             android:layout_height="24dp"
-            android:layout_width="0dp" />
+            android:layout_width="24dp" />
 
         <TextView
-            android:text="Snowfall"
             android:id="@+id/tv_item_weather_name"
+            style="@style/TimeTextTheme"
             android:textAlignment="center"
             android:layout_weight="4"
             android:layout_height="match_parent"

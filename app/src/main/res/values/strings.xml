@@ -3,4 +3,9 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="humidity">Humidity</string>
+    <string name="wind">Wind</string>
+    <string name="percentage">%</string>
+    <string name="weather_icon_description">Weather icon</string>
+    <string name="km_h">km/h</string>
 </resources>

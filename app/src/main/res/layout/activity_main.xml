@@ -3,8 +3,10 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/cl_main_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@android:color/black"
         tools:context=".ui.MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -13,7 +15,7 @@
         android:layout_width="match_parent">
 
         <TextView
-            android:text="Lviv"
+            style="@style/BaseTextTheme"
             android:id="@+id/tv_cityName"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
@@ -25,7 +27,6 @@
 
         <TextView
             android:id="@+id/tv_date"
-            android:text="Sunday, 14.05.2019"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             app:layout_constraintStart_toStartOf="@+id/tv_cityName"
@@ -48,17 +49,17 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:text="Wind"
-                    android:textSize="@dimen/text_20"
+                    android:text="@string/wind"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
+                    style="@style/BaseTextTheme"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     android:id="@+id/textView2"/>
 
                 <TextView
-                    android:text="10"
                     android:id="@+id/tv_windSpeed"
+                    style="@style/AdditionInfoTheme"
                     android:textSize="@dimen/text_24"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
@@ -67,7 +68,8 @@
                     app:layout_constraintTop_toTopOf="parent"/>
 
                 <TextView
-                    android:text="km/h"
+                    android:text="@string/km_h"
+                    style="@style/BaseTextTheme"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     app:layout_constraintTop_toBottomOf="@+id/tv_windSpeed"
@@ -83,9 +85,9 @@
                 app:layout_constraintBottom_toBottomOf="parent">
 
                 <TextView
-                    android:text="Humidity"
+                    android:text="@string/humidity"
+                    style="@style/BaseTextTheme"
                     android:id="@+id/textView3"
-                    android:textSize="@dimen/text_20"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="parent"
@@ -93,9 +95,8 @@
                     app:layout_constraintEnd_toEndOf="parent"/>
 
                 <TextView
-                    android:text="10"
                     android:id="@+id/tv_humidityPercent"
-                    android:textSize="@dimen/text_24"
+                    style="@style/AdditionInfoTheme"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     app:layout_constraintStart_toStartOf="parent"
@@ -103,7 +104,8 @@
                     app:layout_constraintTop_toTopOf="parent"/>
 
                 <TextView
-                    android:text="%"
+                    android:text="@string/percentage"
+                    style="@style/BaseTextTheme"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     app:layout_constraintTop_toBottomOf="@+id/tv_humidityPercent"
@@ -130,9 +132,8 @@
                     app:layout_constraintBottom_toTopOf="@+id/ll_weathername">
 
                     <TextView
-                        android:text="8°"
                         android:id="@+id/tv_temperatureBig"
-                        android:textSize="@dimen/text_72"
+                        style="@style/MainTemperatureText"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
                         app:layout_constraintStart_toStartOf="parent"
@@ -159,18 +160,20 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginBottom="@dimen/margin_small"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:contentDescription="@string/weather_icon_description" />
 
                     <TextView
                         android:layout_weight="1"
+                        style="@style/BaseTextTheme"
                         android:layout_gravity="center_vertical"
-                        android:text="Snowfall"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
                         app:layout_constraintTop_toTopOf="@+id/iv_weatherIcon"
                         app:layout_constraintBottom_toBottomOf="@+id/iv_weatherIcon"
                         android:id="@+id/tv_condition"
-                        app:layout_constraintStart_toEndOf="@+id/iv_weatherIcon" android:layout_marginStart="8dp"/>
+                        app:layout_constraintStart_toEndOf="@+id/iv_weatherIcon"
+                        android:layout_marginStart="8dp"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -188,7 +191,6 @@
             app:layout_constraintEnd_toEndOf="parent"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:background="@color/colorDivider"
             android:id="@+id/rv_weather_forecast"
             android:layout_height="100dp"
             android:layout_width="300dp"
@@ -201,12 +203,13 @@
 
         <Button
             android:id="@+id/btn_update_location"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Update Location"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/ic_near_me_white_24dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_date"
             app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
-            app:layout_constraintStart_toStartOf="@+id/constraintLayout"
-            app:layout_constraintTop_toBottomOf="@+id/rv_weather_forecast" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
