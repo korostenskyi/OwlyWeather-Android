@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope, KodeinAware {
 
     override val kodein by closestKodein()
 
-    override val coroutineContext: CoroutineContext = Dispatchers.IO
+    override val coroutineContext: CoroutineContext = Dispatchers.Main
 
     private lateinit var viewModel: MainViewModel
     private val mainViewModelFactory: MainViewModelFactory by instance()
@@ -116,7 +116,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope, KodeinAware {
     }
 
     private fun loadData(lat: Double, lon: Double) {
-        launch(Dispatchers.IO) {
+        launch {
             sendCurrentWeatherRequest(lat, lon)
             sentForecastWeatherRequest(lat, lon)
         }
@@ -128,7 +128,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope, KodeinAware {
 
         tv_temperatureBig.text = "$temperature°"
         tv_cityName.text = weatherLiveData.value?.cityName
-        tv_windSpeed.text = weatherLiveData.value?.wind?.speed.toString()
+        tv_windSpeed.text = weatherLiveData.value?.wind?.speed?.toInt().toString()
         tv_humidityPercent.text = weatherLiveData.value?.numericalData!!.humidity.toString()
         tv_condition.text = weatherLiveData.value?.weather?.get(0)?.title
         iv_weatherIcon.setImageDrawable(ResourcesCompat.getDrawable(resources, IconUtils.getIconDrawable(weatherLiveData.value?.weather?.get(0)?.icon!!), null))
