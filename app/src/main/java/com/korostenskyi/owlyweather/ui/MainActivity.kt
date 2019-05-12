@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope, KodeinAware {
 
     override val kodein by closestKodein()
 
-    override val coroutineContext: CoroutineContext = Dispatchers.IO
+    override val coroutineContext: CoroutineContext = Dispatchers.Main
 
     private lateinit var viewModel: MainViewModel
     private val mainViewModelFactory: MainViewModelFactory by instance()
@@ -116,7 +116,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope, KodeinAware {
     }
 
     private fun loadData(lat: Double, lon: Double) {
-        launch(Dispatchers.IO) {
+        launch {
             sendCurrentWeatherRequest(lat, lon)
             sentForecastWeatherRequest(lat, lon)
         }
