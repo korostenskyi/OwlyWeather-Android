@@ -20,6 +20,6 @@ val appModule = module {
     // OpenWeatherRepositoryImpl
     single<Repository> { RepositoryImpl(get()) }
 
-    // MainViewModelFactory
+    // MainViewModel
     viewModel { MainViewModel(get()) }
 }
