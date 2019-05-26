@@ -8,7 +8,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.korostenskyi.owlyweather"
-        minSdkVersion 26
+        minSdkVersion 22
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -37,16 +37,12 @@ dependencies {
     // Design
     implementation 'com.google.android.material:material:1.1.0-alpha05'
 
-    // Kodein
-    // Warning: Not to update to 6.x.x version
-    implementation 'org.kodein.di:kodein-di-generic-jvm:5.2.0'
-    implementation "org.kodein.di:kodein-di-framework-android-x:5.2.0"
+    // Koin
+    implementation 'org.koin:koin-androidx-scope:2.0.0-GA6'
+    implementation 'org.koin:koin-androidx-viewmodel:2.0.0-GA6'
 
     // Gson
     implementation 'com.google.code.gson:gson:2.8.5'
-
-    // OkHttp
-    implementation 'com.squareup.okhttp3:okhttp:3.12.1'
 
     // Retrofit2
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'

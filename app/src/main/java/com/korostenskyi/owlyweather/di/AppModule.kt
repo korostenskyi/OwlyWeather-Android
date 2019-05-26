@@ -1,26 +1,25 @@
 package com.korostenskyi.owlyweather.di
 
+import com.korostenskyi.owlyweather.data.network.OpenWeatherDataSource
 import com.korostenskyi.owlyweather.data.network.OpenWeatherDataSourceImpl
 import com.korostenskyi.owlyweather.data.network.api.OpenWeatherApiService
+import com.korostenskyi.owlyweather.data.repository.Repository
 import com.korostenskyi.owlyweather.data.repository.RepositoryImpl
-import com.korostenskyi.owlyweather.ui.MainViewModelFactory
-import org.kodein.di.Kodein
-import org.kodein.di.generic.bind
-import org.kodein.di.generic.instance
-import org.kodein.di.generic.provider
-import org.kodein.di.generic.singleton
+import com.korostenskyi.owlyweather.ui.MainViewModel
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.dsl.module
 
-val appModule = Kodein.Module("app") {
+val appModule = module {
 
     // OpenWeatherApiService
-    bind() from singleton { OpenWeatherApiService() }
+    single { OpenWeatherApiService() }
 
     // OpenWeatherDataSourceImpl
-    bind() from singleton { OpenWeatherDataSourceImpl(instance()) }
+    single<OpenWeatherDataSource> { OpenWeatherDataSourceImpl(get()) }
 
     // OpenWeatherRepositoryImpl
-    bind() from singleton { RepositoryImpl(instance()) }
+    single<Repository> { RepositoryImpl(get()) }
 
     // MainViewModelFactory
-    bind() from provider { MainViewModelFactory(instance()) }
+    viewModel { MainViewModel(get()) }
 }

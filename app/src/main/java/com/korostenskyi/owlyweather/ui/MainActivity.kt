@@ -10,7 +10,6 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -23,25 +22,20 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import org.kodein.di.KodeinAware
-import org.kodein.di.android.closestKodein
-import org.kodein.di.generic.instance
+import org.koin.android.ext.android.inject
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.coroutines.CoroutineContext
 
 private const val PLACE_REQUEST = 1
 
-class MainActivity : AppCompatActivity(), CoroutineScope, KodeinAware {
+class MainActivity : AppCompatActivity(), CoroutineScope {
 
     private val LAYOUT = R.layout.activity_main
 
-    override val kodein by closestKodein()
-
     override val coroutineContext: CoroutineContext = Dispatchers.Main
 
-    private lateinit var viewModel: MainViewModel
-    private val mainViewModelFactory: MainViewModelFactory by instance()
+    private val viewModel: MainViewModel by inject()
 
     private var weatherLiveData = MutableLiveData<WeatherCurrentResponse>()
     private var forecastLiveData = MutableLiveData<WeatherForecastResponse>()
@@ -51,9 +45,6 @@ class MainActivity : AppCompatActivity(), CoroutineScope, KodeinAware {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(LAYOUT)
-
-        viewModel = ViewModelProviders.of(this, mainViewModelFactory)
-            .get(MainViewModel::class.java)
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this@MainActivity)
 
