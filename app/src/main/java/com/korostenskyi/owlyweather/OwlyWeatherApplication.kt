@@ -2,12 +2,17 @@ package com.korostenskyi.owlyweather
 
 import android.app.Application
 import com.korostenskyi.owlyweather.di.appModule
-import org.kodein.di.Kodein
-import org.kodein.di.KodeinAware
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
 
-class OwlyWeatherApplication: Application(), KodeinAware {
+class OwlyWeatherApplication: Application() {
 
-    override val kodein = Kodein.lazy {
-        import(appModule)
+    override fun onCreate() {
+        super.onCreate()
+
+        startKoin {
+            androidContext(this@OwlyWeatherApplication)
+            modules(appModule)
+        }
     }
 }
