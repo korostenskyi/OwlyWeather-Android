@@ -201,16 +201,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout"/>
 
-        <Button
-            android:id="@+id/btn_update_location"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="32dp"
-            android:background="@drawable/ic_near_me_white_24dp"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_date"
-            app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
-            app:layout_constraintTop_toTopOf="parent" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

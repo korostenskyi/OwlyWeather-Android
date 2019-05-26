@@ -52,9 +52,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
         loadData(49.8397, 24.0297)
 
         if (NetworkUtils.isNetworkAvailable(this@MainActivity)) {
-            btn_update_location.setOnClickListener {
-                updateCurrentLocation()
-            }
+            updateCurrentLocation()
         } else {
             showToast("No network connection...")
         }
