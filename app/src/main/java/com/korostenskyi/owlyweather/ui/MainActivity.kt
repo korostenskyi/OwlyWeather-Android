@@ -49,7 +49,6 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this@MainActivity)
 
         initRecyclerView()
-        loadData(49.8397, 24.0297)
 
         if (NetworkUtils.isNetworkAvailable(this@MainActivity)) {
             updateCurrentLocation()

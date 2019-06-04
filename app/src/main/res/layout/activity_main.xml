@@ -152,7 +152,6 @@
 
                     <ImageView
                         android:layout_weight="1"
-                        android:src="@drawable/ic_launcher_background"
                         android:id="@+id/iv_weatherIcon"
                         android:layout_height="50dp"
                         android:layout_width="50dp"

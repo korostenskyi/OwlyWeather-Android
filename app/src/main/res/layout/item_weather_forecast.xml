@@ -33,7 +33,6 @@
 
         <ImageView
             android:id="@+id/iv_item_weather_icon"
-            android:src="@drawable/ic_launcher_background"
             android:layout_weight="1"
             android:layout_height="24dp"
             android:layout_width="24dp" />
