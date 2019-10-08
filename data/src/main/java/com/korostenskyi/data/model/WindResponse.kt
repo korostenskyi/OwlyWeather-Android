@@ -1,8 +1,8 @@
-package com.korostenskyi.owlyweather.data.entity
+package com.korostenskyi.data.model
 
 import com.google.gson.annotations.SerializedName
 
-data class Wind(
+data class WindResponse(
     @SerializedName("speed") var speed: Double,
     @SerializedName("deg") var degree: Double
 )

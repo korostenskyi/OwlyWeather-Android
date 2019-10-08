@@ -1,8 +1,8 @@
-package com.korostenskyi.owlyweather.data.entity
+package com.korostenskyi.data.model
 
 import com.google.gson.annotations.SerializedName
 
-data class NumericalData(
+data class NumericalDataResponse(
     @SerializedName("temp") var temperature: Double,
     @SerializedName("temp_min") var temperatureMin: Double,
     @SerializedName("temp_max") var temperatureMax: Double,
