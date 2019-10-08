@@ -2,37 +2,27 @@ package com.korostenskyi.owlyweather.ui
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.korostenskyi.owlyweather.data.entity.WeatherCurrentResponse
-import com.korostenskyi.owlyweather.data.entity.WeatherForecastResponse
-import com.korostenskyi.owlyweather.data.repository.Repository
+import com.korostenskyi.domain.interactor.WeatherInteractor
+import com.korostenskyi.domain.model.CurrentWeather
+import com.korostenskyi.domain.model.ForecastWeather
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class MainViewModel(private val repository: Repository): ViewModel() {
+class MainViewModel(private val weatherInteractor: WeatherInteractor): ViewModel() {
 
-    var currentWeather = MutableLiveData<WeatherCurrentResponse>()
-    var forecastWeather = MutableLiveData<WeatherForecastResponse>()
+    var currentWeatherLiveData = MutableLiveData<CurrentWeather>()
+    var forecastWeatherLiveData = MutableLiveData<ForecastWeather>()
 
-    init {
-        repository.currentWeather.observeForever { serverResponse ->
-            currentWeather.value = serverResponse
-        }
-
-        repository.forecastWeather.observeForever { serverResponse ->
-            forecastWeather.value = serverResponse
-        }
-    }
-
-    suspend fun fetchCurrentWeather(lat: Double, lon: Double) {
+    fun fetchCurrentWeather(lat: Double, lon: Double) {
         GlobalScope.launch(Dispatchers.IO) {
-            repository.fetchCurrentWeather(lat, lon)
+            currentWeatherLiveData.postValue(weatherInteractor.fetchCurrentWeather(lat, lon))
         }
     }
 
     suspend fun fetchForecastWeather(lat: Double, lon: Double) {
         GlobalScope.launch {
-            repository.fetchForecastWeather(lat, lon)
+            forecastWeatherLiveData.postValue(weatherInteractor.fetchForecastWeather(lat, lon))
         }
     }
 }
