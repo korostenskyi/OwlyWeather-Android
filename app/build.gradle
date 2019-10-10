@@ -34,6 +34,7 @@ android {
         all {
             buildConfigField "String", "OW_BASE_URL", '"https://api.openweathermap.org/data/2.5/"'
             buildConfigField "String", "OW_API_KEY", '"6beda136c0f88edfc5db7dd0efe3d955"'
+            buildConfigField "String", "PLACES_API_KEY", '"AIzaSyAU7N6br1i5obI0KGkp03-Y-4QxY99CNzE"'
         }
         develop {}
         production {}
