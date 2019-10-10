@@ -55,6 +55,9 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$gsonConverterVersion"
     implementation "com.squareup.okhttp3:logging-interceptor:$okHttpInterceptorVersion"
 
+    // Places
+    implementation "com.google.android.libraries.places:places:$placesVersion"
+
     // Test
     testImplementation "junit:junit:$jUnitVersion"
     androidTestImplementation "androidx.test.ext:junit:1.1.1"

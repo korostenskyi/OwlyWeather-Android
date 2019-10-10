@@ -11,10 +11,8 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
 import com.korostenskyi.owlyweather.R
 import com.korostenskyi.owlyweather.utils.IconUtils
-import com.korostenskyi.owlyweather.utils.NetworkUtils
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -36,14 +34,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         initRecyclerView()
         bindUi()
-
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this@MainActivity)
-
-        if (NetworkUtils.isNetworkAvailable(this@MainActivity)) {
-            updateCurrentLocation()
-        } else {
-            showToast("No network connection...")
-        }
+        initExtra()
+        requestPermission()
     }
 
     private fun initRecyclerView() {
@@ -71,13 +63,21 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    //TODO: Rewrite
-    private fun updateCurrentLocation() {
-        if (ActivityCompat.checkSelfPermission(this@MainActivity, ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            fusedLocationProviderClient.lastLocation.addOnSuccessListener { loadData(49.04, 24.01) }
-        } else {
-            requestPermission()
-            updateCurrentLocation()
+    private fun initExtra() {
+        fusedLocationProviderClient = FusedLocationProviderClient(this)
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            PLACE_REQUEST -> {
+                if (grantResults.isNotEmpty() && grantResults[0] != PackageManager.PERMISSION_GRANTED) requestPermission()
+                else loadData()
+            }
         }
     }
 
@@ -85,12 +85,9 @@ class MainActivity : AppCompatActivity() {
         ActivityCompat.requestPermissions(this@MainActivity, arrayOf(ACCESS_FINE_LOCATION), PLACE_REQUEST)
     }
 
-    private fun loadData(lat: Double, lon: Double) {
+    private fun loadData() {
         GlobalScope.launch(Dispatchers.IO) {
-            viewModel.apply {
-                fetchCurrentWeather(lat, lon)
-                fetchForecastWeather(lat, lon)
-            }
+            viewModel.fetchData()
         }
     }
 

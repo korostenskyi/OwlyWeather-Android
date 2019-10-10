@@ -9,5 +9,5 @@ import org.koin.dsl.module
 val appModule = module {
     single(named("OpenWeatherKey")) { BuildConfig.OW_API_KEY }
     single(named("OpenWeatherBaseUrl")) { BuildConfig.OW_BASE_URL }
-    viewModel { MainViewModel(get()) }
+    viewModel { MainViewModel(get(), get()) }
 }
