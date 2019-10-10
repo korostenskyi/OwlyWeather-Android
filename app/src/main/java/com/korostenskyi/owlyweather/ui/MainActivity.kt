@@ -3,70 +3,81 @@ package com.korostenskyi.owlyweather.ui
 import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.res.ResourcesCompat
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
 import com.korostenskyi.owlyweather.R
-import com.korostenskyi.owlyweather.data.entity.WeatherCurrentResponse
-import com.korostenskyi.owlyweather.data.entity.WeatherForecastResponse
 import com.korostenskyi.owlyweather.utils.IconUtils
-import com.korostenskyi.owlyweather.utils.NetworkUtils
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.coroutines.CoroutineContext
 
-private const val PLACE_REQUEST = 1
+class MainActivity : AppCompatActivity() {
 
-class MainActivity : AppCompatActivity(), CoroutineScope {
-
-    private val LAYOUT = R.layout.activity_main
-
-    override val coroutineContext: CoroutineContext = Dispatchers.Main
-
-    private val viewModel: MainViewModel by inject()
-
-    private var weatherLiveData = MutableLiveData<WeatherCurrentResponse>()
-    private var forecastLiveData = MutableLiveData<WeatherForecastResponse>()
+    private val viewModel: MainViewModel by viewModel()
+    private val sdf by lazy { SimpleDateFormat("dd.MM hh:mm:ss") }
+    private val weatherAdapter by lazy { MainAdapter(mutableListOf()) }
 
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(LAYOUT)
-
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this@MainActivity)
-
+        setContentView(R.layout.activity_main)
         initRecyclerView()
-        loadData(49.8397, 24.0297)
+        bindUi()
+        initExtra()
+        requestPermission()
+    }
 
-        if (NetworkUtils.isNetworkAvailable(this@MainActivity)) {
-            updateCurrentLocation()
-        } else {
-            showToast("No network connection...")
+    private fun initRecyclerView() {
+        rvWeatherForecast.apply {
+            layoutManager = LinearLayoutManager(this@MainActivity, RecyclerView.HORIZONTAL, false)
+            adapter = weatherAdapter
         }
     }
 
-    private fun updateCurrentLocation() {
+    private fun bindUi() {
+        viewModel.apply {
+            currentWeatherLiveData.observe(this@MainActivity, Observer { currentWeather ->
+                // TODO: Placeholders
+                tvTemperatureBig.text = "${(currentWeather.numericalData.temperature - 273.15).toInt()}°"
+                tvCityName.text = currentWeather.cityName
+                tvWindSpeed.text = currentWeather.wind.speed.toString()
+                tvHumidityPercent.text = currentWeather.numericalData.humidity.toString()
+                tvCondition.text = currentWeather.weather[0].title
+                ivWeatherIcon.setImageDrawable(ResourcesCompat.getDrawable(resources, IconUtils.getIconDrawable(currentWeather.weather[0].icon), null))
+                tvDate.text = sdf.format(Date())
+            })
+            forecastWeatherLiveData.observe(this@MainActivity, Observer { weatherForecast ->
+                weatherAdapter.addForecasts(weatherForecast.forecastList)
+            })
+        }
+    }
 
-        if (ActivityCompat.checkSelfPermission(this@MainActivity, ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            fusedLocationProviderClient.lastLocation.addOnSuccessListener {
-                loadData(it.latitude, it.longitude)
+    private fun initExtra() {
+        fusedLocationProviderClient = FusedLocationProviderClient(this)
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            PLACE_REQUEST -> {
+                if (grantResults.isNotEmpty() && grantResults[0] != PackageManager.PERMISSION_GRANTED) requestPermission()
+                else loadData()
             }
-        } else {
-            requestPermission()
-            updateCurrentLocation()
         }
     }
 
@@ -74,67 +85,17 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
         ActivityCompat.requestPermissions(this@MainActivity, arrayOf(ACCESS_FINE_LOCATION), PLACE_REQUEST)
     }
 
-    private suspend fun sendCurrentWeatherRequest(lat: Double, lon: Double) {
-        weatherLiveData = viewModel.currentWeather
-
-        weatherLiveData.observe(this@MainActivity, Observer { currentWeather ->
-            if (currentWeather == null) {
-                showToast("Something went wrong...")
-                return@Observer
-            }
-
-            updateUI()
-        })
-
-        viewModel.fetchCurrentWeather(lat, lon)
-    }
-
-    private suspend fun sentForecastWeatherRequest(lat: Double, lon: Double) {
-        forecastLiveData = viewModel.forecastWeather
-
-        forecastLiveData.observe(this@MainActivity, Observer { forecastWeather ->
-            if (forecastWeather == null) {
-                showToast("Something went wrong...")
-                return@Observer
-            }
-
-            rv_weather_forecast.adapter = MainAdapter(forecastWeather.forecastList)
-        })
-
-        viewModel.fetchForecastWeather(lat, lon)
-    }
-
-    private fun loadData(lat: Double, lon: Double) {
-        launch {
-            sendCurrentWeatherRequest(lat, lon)
-            sentForecastWeatherRequest(lat, lon)
+    private fun loadData() {
+        GlobalScope.launch(Dispatchers.IO) {
+            viewModel.fetchData()
         }
-    }
-
-    private fun updateUI() {
-
-        val temperature = (weatherLiveData.value?.numericalData?.temperature!! - 273.15).toInt()
-
-        tv_temperatureBig.text = "$temperature°"
-        tv_cityName.text = weatherLiveData.value?.cityName
-        tv_windSpeed.text = weatherLiveData.value?.wind?.speed?.toInt().toString()
-        tv_humidityPercent.text = weatherLiveData.value?.numericalData!!.humidity.toString()
-        tv_condition.text = weatherLiveData.value?.weather?.get(0)?.title
-        iv_weatherIcon.setImageDrawable(ResourcesCompat.getDrawable(resources, IconUtils.getIconDrawable(weatherLiveData.value?.weather?.get(0)?.icon!!), null))
-
-        val sdf = SimpleDateFormat("dd.MM hh:mm:ss")
-        val currentDate = sdf.format(Date())
-        tv_date.text = currentDate
-    }
-
-    private fun initRecyclerView() {
-        val linearLayoutManager = LinearLayoutManager(this@MainActivity, LinearLayout.HORIZONTAL, false)
-
-        rv_weather_forecast.layoutManager = linearLayoutManager
-        rv_weather_forecast.adapter = MainAdapter(listOf())
     }
 
     private fun showToast(message: String) {
         Toast.makeText(this@MainActivity, message, Toast.LENGTH_SHORT).show()
+    }
+
+    companion object {
+        private const val PLACE_REQUEST = 1
     }
 }
