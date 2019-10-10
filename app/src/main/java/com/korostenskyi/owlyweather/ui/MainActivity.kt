@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
-        rv_weather_forecast.apply {
+        rvWeatherForecast.apply {
             layoutManager = LinearLayoutManager(this@MainActivity, RecyclerView.HORIZONTAL, false)
             adapter = weatherAdapter
         }
@@ -49,13 +49,13 @@ class MainActivity : AppCompatActivity() {
         viewModel.apply {
             currentWeatherLiveData.observe(this@MainActivity, Observer { currentWeather ->
                 // TODO: Placeholders
-                tv_temperatureBig.text = "${(currentWeather.numericalData.temperature - 273.15).toInt()}°"
-                tv_cityName.text = currentWeather.cityName
-                tv_windSpeed.text = currentWeather.wind.speed.toString()
-                tv_humidityPercent.text = currentWeather.numericalData.humidity.toString()
-                tv_condition.text = currentWeather.weather[0].title
-                iv_weatherIcon.setImageDrawable(ResourcesCompat.getDrawable(resources, IconUtils.getIconDrawable(currentWeather.weather[0].icon), null))
-                tv_date.text = sdf.format(Date())
+                tvTemperatureBig.text = "${(currentWeather.numericalData.temperature - 273.15).toInt()}°"
+                tvCityName.text = currentWeather.cityName
+                tvWindSpeed.text = currentWeather.wind.speed.toString()
+                tvHumidityPercent.text = currentWeather.numericalData.humidity.toString()
+                tvCondition.text = currentWeather.weather[0].title
+                ivWeatherIcon.setImageDrawable(ResourcesCompat.getDrawable(resources, IconUtils.getIconDrawable(currentWeather.weather[0].icon), null))
+                tvDate.text = sdf.format(Date())
             })
             forecastWeatherLiveData.observe(this@MainActivity, Observer { weatherForecast ->
                 weatherAdapter.addForecasts(weatherForecast.forecastList)
