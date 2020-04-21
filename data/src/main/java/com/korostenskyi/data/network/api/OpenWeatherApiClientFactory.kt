@@ -12,13 +12,11 @@ object OpenWeatherApiClientFactory {
         val okHttpClient = OkHttpClient.Builder()
             .addInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY })
             .build()
-
         val retrofit = Retrofit.Builder()
             .baseUrl(baseUrl)
             .addConverterFactory(MoshiConverterFactory.create())
             .client(okHttpClient)
             .build()
-
         return retrofit.create()
     }
 }
