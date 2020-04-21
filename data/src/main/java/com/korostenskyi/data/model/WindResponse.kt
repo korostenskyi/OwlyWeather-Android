@@ -1,8 +1,10 @@
 package com.korostenskyi.data.model
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class WindResponse(
-    @SerializedName("speed") var speed: Double,
-    @SerializedName("deg") var degree: Double
+    @Json(name = "speed") var speed: Double,
+    @Json(name = "deg") var degree: Double
 )

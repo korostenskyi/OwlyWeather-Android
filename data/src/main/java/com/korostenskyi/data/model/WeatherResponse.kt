@@ -1,9 +1,11 @@
 package com.korostenskyi.data.model
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class WeatherResponse(
-    @SerializedName("main") val title: String,
-    @SerializedName("description") val description: String,
-    @SerializedName("icon") val icon: String
+    @Json(name = "main") val title: String,
+    @Json(name = "description") val description: String,
+    @Json(name = "icon") val icon: String
 )

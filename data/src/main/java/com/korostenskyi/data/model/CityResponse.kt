@@ -1,8 +1,10 @@
 package com.korostenskyi.data.model
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class CityResponse(
-    @SerializedName("name") var name: String,
-    @SerializedName("country") var country: String
+    @Json(name = "name") var name: String,
+    @Json(name = "country") var country: String
 )
