@@ -12,8 +12,12 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 val dataModule = module {
+
     single<LocationService> { LocationServiceImpl(androidContext()) }
+
     single { OpenWeatherApiClientFactory.createClient(get(named("OpenWeatherBaseUrl"))) }
+
     single<OpenWeatherDataSource> { OpenWeatherDataSourceImpl(get(), get(named("OpenWeatherKey"))) }
+
     single<WeatherRepository> { WeatherRepositoryImpl(get()) }
 }

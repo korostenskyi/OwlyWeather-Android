@@ -25,9 +25,7 @@ class MainViewModel(
     }
 
     private suspend fun fetchForecastWeather(lat: Double, lon: Double) {
-        GlobalScope.launch {
-            forecastWeatherLiveData.postValue(weatherInteractor.fetchForecastWeather(lat, lon))
-        }
+        forecastWeatherLiveData.postValue(weatherInteractor.fetchForecastWeather(lat, lon))
     }
 
     suspend fun fetchData() {
