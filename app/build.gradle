@@ -48,12 +48,13 @@ dependencies {
     implementation project(":data")
 
     // Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
 
     // Android
     implementation "androidx.appcompat:appcompat:$appCompatVersion"
     implementation "androidx.core:core-ktx:$ktxVersion"
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.2.0'
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayout"
     implementation "androidx.legacy:legacy-support-v4:$legacySupportLayout"
     implementation "com.google.android.material:material:$materialVersion"

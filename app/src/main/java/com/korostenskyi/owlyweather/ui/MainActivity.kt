@@ -3,19 +3,17 @@ package com.korostenskyi.owlyweather.ui
 import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.res.ResourcesCompat
-import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.korostenskyi.owlyweather.R
 import com.korostenskyi.owlyweather.utils.IconUtils
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
@@ -33,7 +31,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initRecyclerView()
-        bindUi()
         initExtra()
         requestPermission()
     }
@@ -45,21 +42,23 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun bindUi() {
-        viewModel.apply {
-            currentWeatherLiveData.observe(this@MainActivity, Observer { currentWeather ->
-                // TODO: Placeholders
-                tvTemperatureBig.text = "${(currentWeather.numericalData.temperature - 273.15).toInt()}°"
-                tvCityName.text = currentWeather.cityName
-                tvWindSpeed.text = currentWeather.wind.speed.toString()
-                tvHumidityPercent.text = currentWeather.numericalData.humidity.toString()
-                tvCondition.text = currentWeather.weather[0].title
-                ivWeatherIcon.setImageDrawable(ResourcesCompat.getDrawable(resources, IconUtils.getIconDrawable(currentWeather.weather[0].icon), null))
-                tvDate.text = sdf.format(Date())
-            })
-            forecastWeatherLiveData.observe(this@MainActivity, Observer { weatherForecast ->
-                weatherAdapter.addForecasts(weatherForecast.forecastList)
-            })
+    private fun loadData() {
+        lifecycleScope.launch {
+            viewModel.apply {
+                fetchCurrentWeather().collect { currentWeather ->
+                    // TODO: Placeholders
+                    tvTemperatureBig.text = "${(currentWeather.numericalData.temperature - 273.15).toInt()}°"
+                    tvCityName.text = currentWeather.cityName
+                    tvWindSpeed.text = currentWeather.wind.speed.toString()
+                    tvHumidityPercent.text = currentWeather.numericalData.humidity.toString()
+                    tvCondition.text = currentWeather.weather[0].title
+                    ivWeatherIcon.setImageDrawable(ResourcesCompat.getDrawable(resources, IconUtils.getIconDrawable(currentWeather.weather[0].icon), null))
+                    tvDate.text = sdf.format(Date())
+                }
+                fetchForecastWeather().collect { weatherForecast ->
+                    weatherAdapter.addForecasts(weatherForecast.forecastList)
+                }
+            }
         }
     }
 
@@ -83,16 +82,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun requestPermission() {
         ActivityCompat.requestPermissions(this@MainActivity, arrayOf(ACCESS_FINE_LOCATION), PLACE_REQUEST)
-    }
-
-    private fun loadData() {
-        GlobalScope.launch(Dispatchers.IO) {
-            viewModel.fetchData()
-        }
-    }
-
-    private fun showToast(message: String) {
-        Toast.makeText(this@MainActivity, message, Toast.LENGTH_SHORT).show()
     }
 
     companion object {

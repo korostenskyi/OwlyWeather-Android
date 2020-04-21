@@ -1,10 +1,12 @@
 package com.korostenskyi.data.model
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class WeatherCurrentResponse(
-    @SerializedName("name") var cityName: String,
-    @SerializedName("main") var numericalData: NumericalDataResponse,
-    @SerializedName("weather") var weather: List<WeatherResponse>,
-    @SerializedName("wind") var wind: WindResponse
+    @Json(name = "name") var cityName: String,
+    @Json(name = "main") var numericalData: NumericalDataResponse,
+    @Json(name = "weather") var weather: List<WeatherResponse>,
+    @Json(name = "wind") var wind: WindResponse
 )
